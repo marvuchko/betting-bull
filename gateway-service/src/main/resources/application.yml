@@ -1,0 +1,39 @@
+##### Server
+
+server:
+  port: 8080
+
+##### Eureka
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    hostname: localhost
+    preferIpAddress: true
+
+##### Zuul
+
+zuul:
+  host:
+    connect-timeout-millis: 5000000
+    socket-timeout-millis: 5000000
+  ignoredServices: '*'
+  routes:
+    teams-and-players-service:
+      path: /teams-and-players/**
+      serviceId: teams-and-players-service
+      stripPrefix: true
+    fee-service:
+      path: /fee/**
+      serviceId: fee-service
+      stripPrefix: true
+
+##### Spring
+
+spring:
+  application:
+    name: gateway-service

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/discovery-service/discovery-service.iml" filepath="$PROJECT_DIR$/discovery-service/discovery-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fee-service/fee-service.iml" filepath="$PROJECT_DIR$/fee-service/fee-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway-service/gateway-service.iml" filepath="$PROJECT_DIR$/gateway-service/gateway-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/infrastructure-microservice/infrastructure-microservice.iml" filepath="$PROJECT_DIR$/infrastructure-microservice/infrastructure-microservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservices.iml" filepath="$PROJECT_DIR$/microservices.iml" />
+      <module fileurl="file://$PROJECT_DIR$/teams-and-players-service/teams-and-players-service.iml" filepath="$PROJECT_DIR$/teams-and-players-service/teams-and-players-service.iml" />
+    </modules>
+  </component>
+</project>
