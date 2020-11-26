@@ -56,8 +56,6 @@ public class ContractFeeResource extends ServiceAwareResource<ContractFeeService
     @ApiOperation("Creates new contract fee record.")
     public ContractFeeDto create(@Valid @RequestBody ContractFeeDto body) {
         var entity = map(body, ContractFee.class);
-        entity.setPlayerId(body.getPlayerId());
-        entity.setTeamId(body.getTeamId());
         return map(service.create(entity), ContractFeeDto.class);
     }
 

@@ -19,6 +19,7 @@
 		<model-mapper.version>2.3.9</model-mapper.version>
 		<reflections.version>0.9.12</reflections.version>
 		<swagger.version>2.9.2</swagger.version>
+		<spring-boot.repackage.skip>true</spring-boot.repackage.skip>
 	</properties>
 
 	<dependencies>
