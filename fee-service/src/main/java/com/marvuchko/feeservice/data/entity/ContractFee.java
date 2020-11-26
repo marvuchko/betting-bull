@@ -33,4 +33,7 @@ public class ContractFee extends BaseEntity<Long> {
     @Column(name = "total_fee")
     private Float totalFee;
 
+    @Column(name = "currency")
+    private String currency;
+
 }

@@ -4,13 +4,25 @@ import com.marvuchko.infrastructuremicroservice.service.impl.RepositoryAwareServ
 import com.marvuchko.teamsandplayersservice.data.entity.Player;
 import com.marvuchko.teamsandplayersservice.data.repository.PlayerRepository;
 import com.marvuchko.teamsandplayersservice.service.PlayerService;
+import com.marvuchko.teamsandplayersservice.service.feign.ContractFeeFeignService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PlayerServiceImpl extends RepositoryAwareServiceImpl<Long, Player, PlayerRepository>
         implements PlayerService {
 
-    public PlayerServiceImpl(PlayerRepository repository) {
+    private final ContractFeeFeignService contractFeeFeignService;
+
+    public PlayerServiceImpl(PlayerRepository repository, ContractFeeFeignService contractFeeFeignService) {
         super(repository);
+        this.contractFeeFeignService = contractFeeFeignService;
     }
+
+    @Override
+    public Player delete(Long id) {
+        var entity = super.delete(id);
+        contractFeeFeignService.deleteByPlayer(entity.getId());
+        return entity;
+    }
+
 }

@@ -26,7 +26,9 @@ public abstract class BaseGlobalErrorHandler extends ResponseEntityExceptionHand
                 .path(request.getRequestURI())
                 .build();
 
-        return ResponseEntity.ok(error);
+        return ResponseEntity
+                .status(error.getErrorCode())
+                .body(error);
     }
 
     @Override

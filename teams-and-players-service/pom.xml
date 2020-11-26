@@ -26,6 +26,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.marvuchko</groupId>
 			<artifactId>infrastructure-microservice</artifactId>
 			<version>${project.version}</version>

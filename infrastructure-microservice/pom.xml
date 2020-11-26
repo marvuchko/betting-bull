@@ -17,6 +17,8 @@
 
 	<properties>
 		<model-mapper.version>2.3.9</model-mapper.version>
+		<reflections.version>0.9.12</reflections.version>
+		<swagger.version>2.9.2</swagger.version>
 	</properties>
 
 	<dependencies>
@@ -46,6 +48,25 @@
 			<artifactId>modelmapper</artifactId>
 			<version>${model-mapper.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>${reflections.version}</version>
+		</dependency>
+
 	</dependencies>
 
 </project>

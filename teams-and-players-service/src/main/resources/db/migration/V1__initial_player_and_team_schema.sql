@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS public.player(
     id BIGSERIAL PRIMARY KEY,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW(),
     created_by VARCHAR(255) DEFAULT 'ADMIN',
     updated_by VARCHAR(255) DEFAULT 'ADMIN',
     first_name VARCHAR(120) NOT NULL,
@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS public.player(
 
 CREATE TABLE IF NOT EXISTS public.team(
     id BIGSERIAL PRIMARY KEY,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW(),
     created_by VARCHAR(255) DEFAULT 'ADMIN',
     updated_by VARCHAR(255) DEFAULT 'ADMIN',
     name VARCHAR(120) UNIQUE,

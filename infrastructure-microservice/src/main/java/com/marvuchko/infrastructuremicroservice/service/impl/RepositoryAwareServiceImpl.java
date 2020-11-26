@@ -21,10 +21,15 @@ public abstract class RepositoryAwareServiceImpl<K extends Serializable, T exten
 
     static {
         MODEL_MAPPER = new ModelMapper();
-        MODEL_MAPPER.getConfiguration().setAmbiguityIgnored(true);
+        var configuration = MODEL_MAPPER.getConfiguration();
+
+        configuration
+                .setAmbiguityIgnored(true)
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
     }
 
-    private final R repository;
+    protected final R repository;
 
     public RepositoryAwareServiceImpl(R repository) {
         this.repository = repository;

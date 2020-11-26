@@ -3,11 +3,18 @@ package com.marvuchko.infrastructuremicroservice.resource;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
-import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Collectors.toCollection;
 
 public abstract class BaseResource {
+
+    /**
+     * Resource documentation constants
+     */
+    public static final String TAG_NAME_FIELD = "TAG_NAME";
+    public static final String TAG_DESCRIPTION_FIELD = "TAG_DESCRIPTION";
 
     /**
      * URL Constants
@@ -24,11 +31,21 @@ public abstract class BaseResource {
      */
     protected static final String ID_FIELD = "id";
 
+    protected static final int DEFAULT_PAGE_SIZE = 20;
+
+    /**
+     * Model mapper for mapping differences between objects
+     */
     private static final ModelMapper MODEL_MAPPER;
 
     static {
         MODEL_MAPPER = new ModelMapper();
-        MODEL_MAPPER.getConfiguration().setAmbiguityIgnored(true);
+        var configuration = MODEL_MAPPER.getConfiguration();
+
+        configuration
+                .setAmbiguityIgnored(true)
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
     }
 
     protected static <S, D> D map(S source, Class<D> type) {
@@ -39,7 +56,7 @@ public abstract class BaseResource {
         return sources
                 .stream()
                 .map(item -> map(item, type))
-                .collect(toSet());
+                .collect(toCollection(LinkedHashSet::new));
     }
 
     protected static <S, D> Page<D> mapPage(Page<S> source, Class<D> type) {
