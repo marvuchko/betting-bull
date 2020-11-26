@@ -49,10 +49,7 @@ public class ContractFeeResource extends ServiceAwareResource<ContractFeeService
     @GetMapping(ID_PATH)
     @ApiOperation("Returns single contract fee record by ID.")
     public ContractFeeDto getById(@PathVariable Long id) {
-        var dto = map(service.getById(id), ContractFeeDto.class);
-        dto.setPlayerData(teamsAndPlayersFeignService.getPlayerById(dto.getPlayerId()));
-        dto.setTeamData(teamsAndPlayersFeignService.getTeamById(dto.getTeamId()));
-        return dto;
+        return map(service.getById(id), ContractFeeDto.class);
     }
 
     @PostMapping
@@ -64,7 +61,7 @@ public class ContractFeeResource extends ServiceAwareResource<ContractFeeService
         return map(service.create(entity), ContractFeeDto.class);
     }
 
-    @DeleteMapping
+    @DeleteMapping(ID_PATH)
     @ApiOperation("Deletes contract fee record by ID.")
     public ContractFeeDto deleteById(@PathVariable Long id) {
         return map(service.delete(id), ContractFeeDto.class);

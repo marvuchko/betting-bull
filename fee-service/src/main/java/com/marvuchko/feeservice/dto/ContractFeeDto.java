@@ -36,10 +36,4 @@ public class ContractFeeDto extends BaseDto {
     @ApiModelProperty(value = "Currency, not needed when sending data, Maximum length is 3 characters.", example = "USD")
     private String currency;
 
-    @ApiModelProperty(hidden = true)
-    private PlayerDto playerData;
-
-    @ApiModelProperty(hidden = true)
-    private TeamDto teamData;
-
 }

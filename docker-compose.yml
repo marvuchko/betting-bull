@@ -1,0 +1,130 @@
+version: '3'
+
+services:
+
+##### Fee Service Database
+
+  fee-service-db:
+    container_name: fee-service-db-container
+    image: postgres:10.5
+    expose:
+      - 5432
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - fee-service-db-volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=fee_base
+    depends_on:
+      - discovery-service
+    links:
+      - discovery-service
+    restart: unless-stopped
+
+##### Teams And Players Service Database
+
+  teams-and-players-service-db:
+    container_name: teams-and-players-service-db-container
+    image: postgres:10.5
+    expose:
+      - 5432
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - teams-and-players-service-db-volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=teams_and_players_base
+    depends_on:
+      - discovery-service
+    links:
+      - discovery-service
+    restart: unless-stopped
+
+##### Discovery Service
+
+  discovery-service:
+    container_name: discovery-service-container
+    build:
+      context: ./discovery-service
+    image: discovery-service:latest
+    expose:
+      - 8761
+    ports:
+      - "127.0.0.1:8761:8761"
+    restart: unless-stopped
+
+##### Fee Service
+
+  fee-service:
+    container_name: fee-service-container
+    build:
+      context: ./fee-service
+    image: fee-service:latest
+    expose:
+      - 8082
+    ports:
+      - "127.0.0.1:8082:8082"
+    environment:
+      - DB_PORT=5434
+      - DB_NAME=fee_base
+      - DB_URL=fee-service-db
+      - DB_USER=postgres
+      - DB_PASSWORD=root
+      - EUREKA_URI=discovery-service/eureka
+    restart: unless-stopped
+    depends_on:
+      - fee-service-db
+    links:
+      - fee-service-db
+
+##### Teams And Players Service
+
+  teams-and-player-service:
+    container_name: teams-and-players-container
+    build:
+      context: ./teams-and-players
+    image: teams-and-player-service:latest
+    expose:
+      - 8081
+    ports:
+      - "127.0.0.1:8081:8081"
+    environment:
+      - DB_PORT=5433
+      - DB_NAME=teams_and_players_base
+      - DB_URL=teams-and-players-db
+      - DB_USER=postgres
+      - DB_PASSWORD=root
+      - EUREKA_URI=discovery-service/eureka
+    restart: unless-stopped
+    depends_on:
+      - teams-and-players-db
+    links:
+      - teams-and-players-db
+
+##### Gateway Service
+
+  gateway-service:
+    container_name: gateway-service-container
+    build:
+      context: ./gateway-service
+    image: gateway-service:latest
+    expose:
+      - 8080
+    ports:
+      - "127.0.0.1:8080:8080"
+    restart: unless-stopped
+    depends_on:
+      - discovery-service
+    links:
+      - discovery-service
+
+##### Volumes
+
+volumes:
+  fee-service-db-volume:
+  teams-and-players-service-db-volume:
+

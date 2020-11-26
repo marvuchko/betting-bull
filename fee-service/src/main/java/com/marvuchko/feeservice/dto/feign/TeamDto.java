@@ -25,7 +25,4 @@ public class TeamDto extends BaseDto {
     @Size(min = 2)
     private String preferredCurrency;
 
-    @NotEmpty
-    private Set<PlayerDto> players;
-
 }

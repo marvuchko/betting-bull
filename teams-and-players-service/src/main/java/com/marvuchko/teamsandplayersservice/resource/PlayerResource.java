@@ -54,7 +54,7 @@ public class PlayerResource extends ServiceAwareResource<PlayerService> {
         return map(service.delete(id), PlayerDto.class);
     }
 
-    @PutMapping
+    @PutMapping(ID_PATH)
     @ApiOperation("Updates single player record by ID.")
     public PlayerDto update(@PathVariable Long id, @Valid @RequestBody PlayerDto body) {
         var entity = map(body, Player.class);

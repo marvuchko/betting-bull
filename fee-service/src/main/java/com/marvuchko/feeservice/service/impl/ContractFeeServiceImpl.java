@@ -6,7 +6,6 @@ import com.marvuchko.feeservice.service.ContractFeeService;
 import com.marvuchko.feeservice.service.feign.TeamsAndPlayersFeignService;
 import com.marvuchko.infrastructuremicroservice.exception.core.NotFoundException;
 import com.marvuchko.infrastructuremicroservice.service.impl.RepositoryAwareServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,15 +15,20 @@ import java.util.Set;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static java.util.Optional.ofNullable;
 
 @Service
 public class ContractFeeServiceImpl extends RepositoryAwareServiceImpl<Long, ContractFee, ContractFeeRepository>
         implements ContractFeeService {
 
-    private TeamsAndPlayersFeignService teamsAndPlayersFeignService;
+    private final TeamsAndPlayersFeignService teamsAndPlayersFeignService;
 
-    public ContractFeeServiceImpl(ContractFeeRepository repository) {
+    public ContractFeeServiceImpl(
+            ContractFeeRepository repository,
+            TeamsAndPlayersFeignService teamsAndPlayersFeignService
+    ) {
         super(repository);
+        this.teamsAndPlayersFeignService = teamsAndPlayersFeignService;
     }
 
     @Override
@@ -65,16 +69,12 @@ public class ContractFeeServiceImpl extends RepositoryAwareServiceImpl<Long, Con
         entity.setTeamCommission(teamCommission);
         entity.setTotalFee(contractFee);
 
-        var currency = nonNull(entity.getCurrency()) ? entity.getCurrency() : team.getPreferredCurrency();
+        var currency = ofNullable(entity.getCurrency())
+                .orElse(team.getPreferredCurrency());
 
         entity.setCurrency(currency);
 
         return entity;
-    }
-
-    @Autowired
-    public void setTeamsAndPlayersFeignService(TeamsAndPlayersFeignService teamsAndPlayersFeignService) {
-        this.teamsAndPlayersFeignService = teamsAndPlayersFeignService;
     }
 
     @Override
