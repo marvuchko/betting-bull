@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>infrastructure-microservice</name>
 	<description>Infrastructure for building microservices</description>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<parent>
 		<groupId>com.marvuchko</groupId>
