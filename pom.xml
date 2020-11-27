@@ -14,7 +14,7 @@
 	<artifactId>microservices</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>microservices</name>
-	<description>Microservice tutorial</description>
+	<description>Microservice BettingBull</description>
     <packaging>pom</packaging>
 
 	<properties>
