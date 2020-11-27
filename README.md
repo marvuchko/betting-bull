@@ -14,3 +14,10 @@ In order to run this you need to have:
 ### How to run
 
 Execute `run-microservices.sh` shell script.
+
+Gateway service will be up and running at port `8080`.
+Endpoint `/actuator/routes` will list all available routes.
+
+Swagger documentation is added and available at:
+* `localhost:8080/fee/swagger-ui.html`
+* `localhost:8080/teams-and-players/swagger-ui.html`
