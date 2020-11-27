@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashSet;
 
+import static java.util.Objects.nonNull;
 import static java.util.Optional.ofNullable;
 
 @Service
@@ -35,6 +36,14 @@ public class TeamServiceImpl extends RepositoryAwareServiceImpl<Long, Team, Team
         var entity = super.delete(id);
         contractFeeFeignService.deleteByTeam(entity.getId());
         return entity;
+    }
+
+    @Override
+    public Team create(Team entity) {
+        if (nonNull(entity.getPlayers())) {
+            entity.getPlayers().forEach(player -> player.setTeam(entity));
+        }
+        return super.create(entity);
     }
 
     @Override
